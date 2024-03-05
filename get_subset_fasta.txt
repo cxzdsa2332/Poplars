@@ -1,0 +1,11 @@
+rm(list=ls())
+library(Biostrings)
+load("power_fit_plot/power_fit.Rdata")
+dd = readBStringSet("raw_data/contig_p94_MBY.fasta", format="fasta", use.names=TRUE)
+df = read.csv("graft_expression_matrix.csv")
+length(names(dd))
+dd2 = strsplit(names(dd), split = " ")
+dd2 = sapply(dd2, "[[", 1)
+
+newdd = dd[match(rownames(new_df), dd2)]
+Biostrings::writeXStringSet(newdd,"contig_p94_MBY_subset.fasta")
