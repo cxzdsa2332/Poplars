@@ -6,7 +6,7 @@ library(ggplot2)
 library(patchwork)
 library(ggrepel)
 library(reshape2)
-load("SAD8_Module_gene_ODE.Rdata") #result from ODE solving
+load("Module_gene_ODE.Rdata") #result from ODE solving
 
 darken <- function(color, factor=1.2){
   col <- col2rgb(color)
