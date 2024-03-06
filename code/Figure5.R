@@ -11,13 +11,10 @@ library(reshape2)
 library(cowplot)
 library(scales)
 
-df = read.csv(file = "Code/graft_expression_matrix.csv", header = T, row.names = 1)
-df = df[,-c(1:4)]
+df = read.csv(file = "Code/graft_expression_matrix.csv", header = T, row.names = NULL)
+df = df[,-c(2:5)] #remove control
 
-df_list = lapply(1:8,function(x) cbind(rownames(df),df[,(8*(x-1)+1):(8*x)]))
-  
-
-data_cleaning <- function(data, x = round(ncol(data)*0.5)){
+data_cleaning <- function(data, x = round(ncol(data)*0.3)){
   data = aggregate(data[,2:ncol(data)], by=list(data[,1]), FUN = 'sum')
   rownames(data) = data[,1]
   data = data[,-1]
@@ -27,14 +24,19 @@ data_cleaning <- function(data, x = round(ncol(data)*0.5)){
   return(data2)
 }
 
-df_clean = lapply(df_list,data_cleaning)
 
 
-clean_id = Reduce(intersect,lapply(df_clean,rownames))
+
+df_all = list(df[,c(1:9)],df[,c(1,10:17)],df[,c(1,18:25)],df[,c(1,26:33)],
+              df[,c(1,34:41)],df[,c(1,42:49)],df[,c(1,50:57)],df[,c(1,58:65)])
+df_all = lapply(df_all, data_cleaning,x=4)
 
 
-df = Reduce(cbind,lapply(df_clean,function(x) x[clean_id,]))
 
+common_gene = Reduce(intersect,lapply(df_all, rownames))
+
+df_all2 = lapply(df_all,function(x) x[common_gene,])
+df = Reduce(cbind, df_all2)
 
 
 power_equation <- function(x, power_par){ t(sapply(1:nrow(power_par),
