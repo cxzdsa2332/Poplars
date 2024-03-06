@@ -216,7 +216,7 @@ get_db <- function(){
   #GOcontent = data.frame(cbind(GID=dat$qpid,GOID=paste0('GO:', sprintf("%07d", dat$goid))))
   #geneID2GO =lapply(unique(GOcontent$GID), function (x) GOcontent$GOID[GOcontent$GID==x])
   #names(geneID2GO) = unique(GOcontent$GID)
-  dat = read.delim("contig_p94_MBY_GO.txt", header = T, sep = "\t")
+  dat = read.delim("rawdata/contig_p94_MBY_GO.txt", header = T, sep = "\t")
   dat = dat[match(rownames(df2),dat$SeqName),]
   get_list <- function(i){
     tmp = strsplit(dat[i,]$GO.IDs,"; ")
