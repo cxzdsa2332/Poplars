@@ -9,7 +9,7 @@ library(patchwork)
 library(cowplot)
 library(ggrepel)
 library(scales)
-df = read.csv(file = "Code/graft_expression_matrix.csv", header = T, row.names = 1)
+df = read.csv(file = "rawdata/graft_expression_matrix.csv", header = T, row.names = 1)
 df = df[,-c(1:4)]
 
 df_ck = read.csv("Code/graft_expression_matrix.csv",
