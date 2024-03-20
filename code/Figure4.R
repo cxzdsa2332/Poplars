@@ -12,7 +12,7 @@ library(scales)
 library(cowplot)
 df <- read.csv("Code/graft_expression_matrix.csv",
                header = T,row.names = NULL)
-#load("D:/北林资料/毕业论文/数据分析/8in1plot.Rdata")
+
 df = df[,-c(2:5)]
 data_cleaning <- function(data, x = round(ncol(data)*0.3)){
   data = aggregate(data[,2:ncol(data)], by=list(data[,1]), FUN = 'sum')
